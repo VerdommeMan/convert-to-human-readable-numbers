@@ -55,10 +55,13 @@ local function format(number, precision, removeTrailingZeros, delimiter, scale, 
 end
 
 function instance:format(...)
-    local returns = {}
-    for _, number in ipairs({...}) do
-       table.insert(returns, format(number, self.precision, self.removeTrailingZeros, self.delimiter, self.scale, self.unit) )
+    local args = {...}
+    local returns = table.create(table.getn(args))
+    
+    for index, number in ipairs(args) do
+        returns[index] = format(number, self.precision, self.removeTrailingZeros, self.delimiter, self.scale, self.unit)
     end
+
     return unpack(returns)
 end
 
