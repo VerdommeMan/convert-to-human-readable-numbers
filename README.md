@@ -26,6 +26,28 @@ This module allows you to set a delimiter between the number and the prefix
 ### scales
 This module has by default three scales, SI-prefixes, short scale and long scale. It also allows you to add your own scales. This will be refered to as the prefix.
 
+|      Base 10     | SI-prefix |  short scale  |   long scale   |
+|:----------------:|:---------:|:-------------:|:--------------:|
+|  10<sup>24</sup> |     Y     |   septillion  |   quadrillion  |
+|  10<sup>21</sup> |     Z     |   sextillion  |    trilliard   |
+|  10<sup>18</sup> |     E     |  quintillion  |    trillion    |
+|  10<sup>15</sup> |     P     |  quadrillion  |    billiard    |
+|  10<sup>12</sup> |     T     |    trillion   |     billion    |
+|  10<sup>9</sup>  |     G     |    billion    |     milliard   |
+|  10<sup>6</sup>  |     M     |     million   |     million    |
+|  10<sup>3</sup>  |     k     |    thousand   |    thousand    |
+|  10<sup>0</sup>  |           |               |                |
+|  10<sup>-3</sup> |     m     |   thousandth  |   thousandth   |
+|  10<sup>-6</sup> |     μ     |   millionth   |    millionth   |
+|  10<sup>-9</sup> |     n     |   billionth   |    milliardth  |
+| 10<sup>-12</sup> |     p     |   trillionth  |    billionth   |
+| 10<sup>-15</sup> |     f     | quadrillionth |   billiardth   |
+| 10<sup>-18</sup> |     a     | quintillionth |   trillionth   |
+| 10<sup>-21</sup> |     z     |  sextillionth |   trilliardth  |
+| 10<sup>-24</sup> |     y     |  septillionth |  quadrillionth |
+
+[see here for more informtion](https://en.wikipedia.org/wiki/Metric_prefix)
+
 ### Option to specify the unit
 It allows you set a unit/suffix
 
@@ -65,13 +87,13 @@ It returns the formatted numbers using the properties from the formatter instanc
 
 ### Static properties
 
-#### scales:`Dictionary`
+#### Formatter.scales:`Dictionary`
 
 ##### Scales contains the scales used for the prefix. By default there are three scales: SI-prefixes, short scale, long scale.
 ##### It has as key the scale type ("SI") and as value a mixed table, where the key is the power by three, eig : 1 -> "K"(1e3) 2-> "M"(1e6) and value is the prefix. 
 ##### It goes negative for prefixes below zero.
 
-#### default:`Dictionary`
+#### Formatter.default:`Dictionary`
 
 ##### This dictionary contains the default values used, modifying this allows different default values to be set.
 
