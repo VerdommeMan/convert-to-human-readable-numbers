@@ -59,19 +59,19 @@ In the end your formatted string will look like this
 
 ```lua
 local ServerStorage = game:GetService('ServerStorage')
-local Benchmarker = require(ServerStorage:WaitForChild("ReadableNumbers"))
+local Formatter = require(ServerStorage:WaitForChild("ReadableNumbers"))
 
 print(Formatter.format(1e9)) --1 G
 print(Formatter.format(1e9, 2, false, " ", "longScale", " s")) --1.00 milliard s
 local formatter = Formatter.new()
 print(formatter:format(10, 15, 1e9, 1e-9, 10.4554777, math.pi, 4.14001e-08, 2.32821e+07, -10, -1e9 , -math.pi, 0, 10.12)) --10  15  1 G 1 n 10.455  3.142  41.4 n 23.282 M -10  -1 G -3.142  0  10.12 
-local formatter2 = Formatter.new(3, nil, "", "SI", "B")
+local formatter2 = Formatter.new(3, nil, "", "SI", "B") -- set precision of 3, default so removes trailing zeros, empty delimiter , uses the SI scale and appends the "B" unit
 print(formatter2:format(10, 15, 1e9, 1e-9, 10.4554777, math.pi, 4.14001e-08, 2.32821e+07, -10, -1e9 , -math.pi, 0, 10.12)) --10B 15B 1GB 1nB 10.455B 3.142B 41.4nB 23.282MB -10B -1GB -3.142B 0B 10.12B
 ```
 
 
 ## API
-Is in form: `returnType` **function**(argumentName:`type`, argumentName:`type` defaultValue)`
+Is in the form of `returnType` **function**(argumentName:`type`, argumentName:`type` defaultValue)
 
 ### Constructors
 
