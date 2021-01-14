@@ -11,7 +11,7 @@
     },
     "ServerScriptService":{
       "$className": "ServerScriptService",
-      "Readable":{
+      "ReadableNumbers":{
         "$path": "src/module"
       }
     },

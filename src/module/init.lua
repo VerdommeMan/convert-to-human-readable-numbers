@@ -1,5 +1,5 @@
 local Formatter = {}
-Formatter.default = {precision = 3, scale = "SI", unit = "" , delimiter = " ", removeTrailingZeros = true}
+Formatter.default = {precision = 3, removeTrailingZeros = true, delimiter = " ",  scale = "SI", unit = ""}
 Formatter.scales = {
     SI = {"K", "M", "G", "T", "P", "E", "Z", "Y", [0] = "", [-1] = "m", [-2] = "μ", [-3] = "n", [-4] = "p", [-5] = "f", [-6] = "a", [-7] = "z", [-8] = "y"},
     shortScale = {"thousand", "million", "billion", "trillion", "quadrillion", "quintillion", "sextillion", "septillion", [0] = "", [-1] = "thousandth", [-2] = "millionth", [-3] = "billionth", [-4] = "trillionth", [-5] = "quadrillionth", [-6] = "quintillionth", [-7] = "sextillionth", [-8] = "septillionth"},
