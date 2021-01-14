@@ -2,10 +2,16 @@
 A roblox lua module that converts numbers into a human readable format. It offers a wide customization.
 
 ## TOC
+- [Download](#Download)
 - [Customization](#Customization)
 - [Code examples](#Code-examples)
 - [API](#API)
 - [Notes](#Notes)
+
+## Download 
+- [from the release page](https://github.com/VerdommeMan/convert-to-human-readable-numbers/releases)
+- [link to roblox asset page](https://www.roblox.com/library/6240410557/ReadableNumbers)
+- or you can directly download it from [src](src/)
 
 ## Customization
 ### Specify the numbers behind the decimal point
