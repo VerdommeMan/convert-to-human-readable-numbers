@@ -47,21 +47,21 @@ Is in form: `returnType function(argumentName:type, argumentName:type defaultVal
 
 ### Constructors
 
-#### formatter Formatter.new(specifier:int 3, removeTrailingZeros:boolean true, delimiter:string " ", scale:string "SI", unit:string "")
-##### It returns a Formatter instance, all properties can be changed by indexing the argument name. There are three scales by default: "SI", "shortScale", "longScale".
+`formatter` Formatter.new(specifier:`int` 3, removeTrailingZeros:`boolean` true, delimiter:`string` " ", scale:`string` "SI", unit:`string` "")
+It returns a Formatter instance, all properties can be changed by indexing the argument name. There are three scales by default: "SI", "shortScale", "longScale".
 
 ### Methods
-#### ...:string formatter:format(...:number)
-##### It returns the formatted numbers using the properties from the formatter instance, note that this is a variadic function.
+`...:string` formatter:format(...:`number`)
+It returns the formatted numbers using the properties from the formatter instance, note that this is a variadic function.
 
 ### Static properties
 
-#### scales:Dictionary
+#### scales:`Dictionary`
 ##### Scales contains the scales used for the prefix. By default there are three scales: SI-prefixes, short scale, long scale.
 ##### It has as key the scale type ("SI") and as value a mixed table, where the key is the power by three, eig : 1 -> "K"(1e3) 2-> "M"(1e6) and value is the prefix. 
 ##### It goes negative for prefixes below zero.
 
-#### default:Dictionary
+#### default:`Dictionary`
 ##### This dictionary contains the default values used, modifying this allows different default values to be set.
 
 ### Functions
