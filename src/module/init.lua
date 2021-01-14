@@ -1,10 +1,14 @@
-local formatter = {}
-formatter.default = {precision = 3, scale = "SI", unit = "" , delimiter = " ", removeTrailingZeros = true}
-formatter.scales = {
+local Formatter = {}
+Formatter.default = {precision = 3, scale = "SI", unit = "" , delimiter = " ", removeTrailingZeros = true}
+Formatter.scales = {
     SI = {"K", "M", "G", "T", "P", "E", "Z", "Y", [0] = "", [-1] = "m", [-2] = "μ", [-3] = "n", [-4] = "p", [-5] = "f", [-6] = "a", [-7] = "z", [-8] = "y"},
     shortScale = {"thousand", "million", "billion", "trillion", "quadrillion", "quintillion", "sextillion", "septillion", [0] = "", [-1] = "thousandth", [-2] = "millionth", [-3] = "billionth", [-4] = "trillionth", [-5] = "quadrillionth", [-6] = "quintillionth", [-7] = "sextillionth", [-8] = "septillionth"},
     longScale = {"thousand", "million", "milliard", "billion", "billiard", "trillion", "trilliard", "quadrillion", [0] = "", [-1] = "thousandth", [-2] = "millionth", [-3] = "milliardth", [-4] = "billionth", [-5] = "billiardth", [-6] = "trillionth", [-7] = "trilliardth", [-8] = "quadrillionth"}
 }
+
+local instance = {}
+instance.__index = Formatter
+local mt = {__index = instance}
 
 local function isNumber(arg)
     return type(arg) == "number"
@@ -27,29 +31,11 @@ local function isStrings(...)
     return true
 end
 
-local function toReadableOld(self, ...)
-    local returns = {}
-    for _, number in ipairs({...}) do
-       
-    end
-    return unpack(returns)
-end
-
-function formatter.format(number, precision, removeTrailingZeros, delimiter, scale, unit)
-    -- set defaults
-    precision = precision or formatter.default.precision
-    removeTrailingZeros = removeTrailingZeros == nil and formatter.default.removeTrailingZeros or removeTrailingZeros
-    delimiter = delimiter or formatter.default.delimiter
-    scale = scale or formatter.default.scale
-    unit = unit or formatter.default.unit
-    -- type checking
+local function format(number, precision, removeTrailingZeros, delimiter, scale, unit) -- no type checking and defaulting
     assert(isNumber(number), "Wrong argument given for number, you can give only numbers!")
-    assert(isInt(precision), "Wrong argument given for precision, you can give only integers!")
-    assert(formatter.scales[scale], "wrong argument given for scale, you can only give SI, shortScale or longScale!")
-    assert(isStrings(delimiter, unit), "Wrong argument give for scale/unit, you can give only strings")
 
     local index = math.floor(math.log10(math.abs(number)) / 3)
-    local prefix = formatter.scales[scale][index] 
+    local prefix = Formatter.scales[scale][index] 
     local formattedNumber 
 
     if prefix then
@@ -65,4 +51,37 @@ function formatter.format(number, precision, removeTrailingZeros, delimiter, sca
     return formattedNumber .. delimiter .. prefix .. unit
 end
 
-return formatter
+function instance:format(...)
+    local returns = {}
+    for _, number in ipairs({...}) do
+       table.insert(returns, format(number, self.precision, self.removeTrailingZeros, self.delimiter, self.scale, self.unit) )
+    end
+    return unpack(returns)
+end
+
+function Formatter.new(precision, removeTrailingZeros, delimiter, scale, unit)
+    -- set defaults
+    precision = precision or Formatter.default.precision
+    removeTrailingZeros = removeTrailingZeros == nil and Formatter.default.removeTrailingZeros or removeTrailingZeros
+    delimiter = delimiter or Formatter.default.delimiter
+    scale = scale or Formatter.default.scale
+    unit = unit or Formatter.default.unit
+    -- type checking
+    assert(isInt(precision), "Wrong argument given for precision, you can give only integers!")
+    assert(Formatter.scales[scale], "wrong argument given for scale, you can only give SI, shortScale or longScale!")
+    assert(isStrings(delimiter, unit), "Wrong argument give for scale/unit, you can give only strings")
+
+    return setmetatable({
+        precision = precision,
+        removeTrailingZeros = removeTrailingZeros,
+        delimiter = delimiter,
+        scale = scale,
+        unit = unit
+    }, mt)
+end
+
+function Formatter.format(number, ...)
+    return Formatter.new(...):format(number)
+end
+
+return Formatter
