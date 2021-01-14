@@ -1,0 +1,25 @@
+{
+  "name": "readable",
+  "tree": {
+    "$className": "DataModel",
+
+    "HttpService": {
+      "$className": "HttpService",
+      "$properties": {
+        "HttpEnabled": true
+      }
+    },
+    "ServerScriptService":{
+      "$className": "ServerScriptService",
+      "Benchmarker":{
+        "$path": "src/module"
+      }
+    },
+    "Players":{
+      "$className": "Players",
+      "$properties": {
+        "CharacterAutoLoads": false
+      }
+    }
+  }
+}
