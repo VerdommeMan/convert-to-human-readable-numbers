@@ -10,7 +10,7 @@ local function toReadable(self, ...)
         if isNumber(number) then
             local index = math.floor(math.log10(number) / 3)    
             if index > -9 and index < 9 then
-                table.insert(returns, (string.gsub(string.format("%." .. self.precision .. "f",  number / 10 ^ (index * 3)), "%.?0+$", "") .. prefixes[index]))
+                table.insert(returns, (string.gsub(string.format("%#." .. self.precision .. "f",  number / 10 ^ (index * 3)), "%.0*$", "")) .. prefixes[index])
             else
                 table.insert(returns, string.format("%g", number))
             end
@@ -22,4 +22,3 @@ local function toReadable(self, ...)
 end
 
 return setmetatable({precision = 3}, {__call = toReadable})
-
