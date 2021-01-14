@@ -20,11 +20,11 @@ This module allows you to set a delimiter between the number and the prefix
 ### scales
 This module has by default three scales, SI-prefixes, short scale and long scale. It also allows you to add your own scales. This will be refered to as the prefix.
 
-## Option to specify the unit
+### Option to specify the unit
 It allows you set a unit/suffix
 
 In the end your formatted string will look like this
-`number``.precision``delimiter``prefix``unit`
+`number` `.precision` `delimiter` `prefix` `unit`
 
 
 ## Code examples
