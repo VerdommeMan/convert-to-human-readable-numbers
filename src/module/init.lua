@@ -35,7 +35,7 @@ local function isStrings(...)
 end
 
 local function format(number, precision, removeTrailingZeros, delimiter, scale, unit) -- no type checking and defaulting
-    assert(isNumber(number), "Wrong argument given for number, you can give only numbers!")
+    assert(isNumber(number), "Wrong argument given for number, expected number but instead received " .. typeof(number))
 
     local index = math.floor(math.log10(math.abs(number)) / 3)
     local prefix = Formatter.scales[scale][index] 
@@ -74,9 +74,9 @@ function Formatter.new(precision, removeTrailingZeros, delimiter, scale, unit)
     scale = scale or Formatter.default.scale
     unit = unit or Formatter.default.unit
     -- type checking
-    assert(isInt(precision), "Wrong argument given for precision, you can give only integers!")
-    assert(Formatter.scales[scale], "wrong argument given for scale, you can only give SI, shortScale or longScale!")
-    assert(isStrings(delimiter, unit), "Wrong argument give for scale/unit, you can give only strings")
+    assert(isInt(precision), "Wrong argument given for precision, expected integer but received " .. typeof(precision))
+    assert(Formatter.scales[scale], "wrong argument given for scale, expected a string (SI, shortScale, longScale or a custom scale)!")
+    assert(isStrings(delimiter, unit), "Wrong argument give for scale/unit, expected string but received " .. typeof(delimiter) .. " and " .. typeof(unit))
 
     return setmetatable({
         precision = precision,
