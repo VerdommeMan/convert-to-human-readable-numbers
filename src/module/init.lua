@@ -12,12 +12,18 @@ local function toReadable(self, ...)
     local returns = {}
     for _, number in ipairs({...}) do
         if isNumber(number) then
-            local index = math.floor(math.log10(math.abs(number)) / 3)  
+            local index = math.floor(math.log10(math.abs(number)) / 3)
+            local prefix = scales[self.scale][index] or ""
+            local formattedNumber   
             if index > -9 and index < 9 then
-                table.insert(returns, (string.gsub(string.format("%#." .. self.precision .. "f",  number / 10 ^ (index * 3)), "%.0*$", "")) .. self.delimiter .. scales[self.scale][index] .. self.unit )
+                formattedNumber = string.format("%".. (self.removeTrailingZeros and "#" or "") .."." .. self.precision .. "f",  number / 10 ^ (index * 3))
+                if self.removeTrailingZeros then
+                    formattedNumber = string.gsub(formattedNumber, "%.?0*$", "")
+                end
             else
-                table.insert(returns, string.format("%g", number) .. self.delimiter .. self.unit)
+                formattedNumber = string.format("%g", number)
             end
+            table.insert(returns, formattedNumber .. self.delimiter .. prefix .. self.unit)
         else
             error("Wrong arguments given, you can give only numbers!")
         end
@@ -25,4 +31,4 @@ local function toReadable(self, ...)
     return unpack(returns)
 end
 
-return setmetatable({precision = 3, scale = "shortScale", unit = "" , delimiter = " "}, {__call = toReadable})
+return setmetatable({precision = 3, scale = "SI", unit = "s" , delimiter = " ", removeTrailingZeros = true}, {__call = toReadable})
