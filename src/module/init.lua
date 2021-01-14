@@ -1,3 +1,6 @@
+-- @Author: VerdommeMan, see https://github.com/VerdommeMan/convert-to-human-readable-numbers for more information 
+-- @Version: 1.0.0
+
 local Formatter = {}
 Formatter.default = {precision = 3, removeTrailingZeros = true, delimiter = " ",  scale = "SI", unit = ""}
 Formatter.scales = {
