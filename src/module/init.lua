@@ -1,5 +1,5 @@
 -- @Author: VerdommeMan, see https://github.com/VerdommeMan/convert-to-human-readable-numbers for more information 
--- @Version: 1.0.0
+-- @Version: 1.0.1
 
 local Formatter = {}
 Formatter.default = {precision = 3, removeTrailingZeros = true, delimiter = " ",  scale = "SI", unit = ""}
@@ -56,10 +56,11 @@ end
 
 function instance:format(...)
     local args = {...}
-    local returns = table.create(table.getn(args))
+    local n = select("#", ...)
+    local returns = table.create(n)
     
-    for index, number in ipairs(args) do
-        returns[index] = format(number, self.precision, self.removeTrailingZeros, self.delimiter, self.scale, self.unit)
+    for i = 1, n do
+        returns[i] = format(args[i], self.precision, self.removeTrailingZeros, self.delimiter, self.scale, self.unit)
     end
 
     return unpack(returns)
