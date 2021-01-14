@@ -13,14 +13,15 @@ local function toReadable(self, ...)
     for _, number in ipairs({...}) do
         if isNumber(number) then
             local index = math.floor(math.log10(math.abs(number)) / 3)
-            local prefix = scales[self.scale][index] or ""
+            local prefix = scales[self.scale][index] 
             local formattedNumber   
-            if index > -9 and index < 9 then
+            if prefix then
                 formattedNumber = string.format("%".. (self.removeTrailingZeros and "#" or "") .."." .. self.precision .. "f",  number / 10 ^ (index * 3))
                 if self.removeTrailingZeros then
                     formattedNumber = string.gsub(formattedNumber, "%.?0*$", "")
                 end
-            else
+            else -- defaults to standard behaviour, incase when number is bigger or smaller than 1e-+24 or is zero
+                prefix = ""
                 formattedNumber = string.format("%g", number)
             end
             table.insert(returns, formattedNumber .. self.delimiter .. prefix .. self.unit)
