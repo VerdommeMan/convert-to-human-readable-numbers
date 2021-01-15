@@ -105,4 +105,4 @@ It returns the formatted numbers using the properties from the formatter instanc
 ####
 ## Notes
 - Numbers bigger or smaller than 1e±24 and zero will not be formatted but will have delimiter and prefix and unit added. This can be overcome by expanding the scales.
-- It does only type checks the arguments, so you can set wrong type of the properties
+- It does only type checking for the arguments, so if you set the properties manually you can set a wrong type.
