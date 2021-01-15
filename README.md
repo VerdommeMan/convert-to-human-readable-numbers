@@ -15,7 +15,7 @@ A roblox lua module that converts numbers into a human readable format. It offer
 
 ## Customization
 ### Specify the numbers behind the decimal point
-This module allows you the specify the precision, when given a precision of zero, it will remove the decimal point.
+This module allows you the specify the precision, when given a precision of zero, it will remove the decimal point. Note that the precision will round like `math.round`.
 
 ### Option to remove trailing zeros
 This module has a option to remove trailing zeros when you set a precision.
