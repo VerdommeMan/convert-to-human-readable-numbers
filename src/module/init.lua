@@ -1,5 +1,5 @@
 -- @Author: VerdommeMan, see https://github.com/VerdommeMan/convert-to-human-readable-numbers for more information 
--- @Version: 1.0.1
+-- @Version: 1.0.2
 
 local Formatter = {}
 Formatter.default = {precision = 3, removeTrailingZeros = true, delimiter = " ",  scale = "SI", unit = ""}
@@ -12,6 +12,14 @@ Formatter.scales = {
 local instance = {}
 instance.__index = Formatter
 local mt = {__index = instance}
+
+local function isNaN(arg)
+    return arg ~= arg
+end
+
+local function isInf(arg)
+   return arg == -math.huge or arg == math.huge
+end
 
 -- these are modified to allow string-number coersion
 local function isNumber(arg)
@@ -35,10 +43,20 @@ local function isStrings(...)
     return true
 end
 
+local function formatExceptions(number)
+    if isInf(number) then
+        return "∞"
+    elseif isNaN(number) then
+        return "NaN"
+    else
+        return string.format("%g", number)
+    end
+end
+
 local function format(number, precision, removeTrailingZeros, delimiter, scale, unit) -- no type checking and defaulting
     assert(isNumber(number), "Wrong argument given for number, expected number but instead received " .. typeof(number))
 
-    local index = math.floor(math.log10(math.abs(number)) / 3)
+    local index = math.floor(math.log(math.abs(number), 1000))
     local prefix = Formatter.scales[scale][index] 
     local formattedNumber 
 
@@ -49,7 +67,7 @@ local function format(number, precision, removeTrailingZeros, delimiter, scale, 
         end
     else -- defaults to standard behaviour, incase when number is bigger or smaller than 1e-+24 or is zero
         prefix = ""
-        formattedNumber = string.format("%g", number)
+        formattedNumber = formatExceptions(number)
     end
 
     return formattedNumber .. delimiter .. prefix .. unit
