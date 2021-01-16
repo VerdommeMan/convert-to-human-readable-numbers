@@ -14,14 +14,14 @@ A roblox lua module that converts numbers into a human readable format. It offer
 - or you can directly download it from [src](src/)
 
 ## Customization
-### Specify the numbers behind the decimal point
-This module allows you the specify the precision, when given a precision of zero, it will remove the decimal point. Note that the precision will round like `math.round`.
+### Specify the numbers behind the decimal separator
+This module allows you the specify the precision, when given a precision of zero, it will remove the decimal separator. Note that the precision will round like `math.round`.
 
 ### Option to remove trailing zeros
-This module has a option to remove trailing zeros when you set a precision.
+This module has the option to remove trailing zeros when you set a precision.
 
 ### Option to specify the space between the formatted number and prefix
-This module allows you to set a delimiter between the number and the prefix
+This module allows you to set a delimiter between the number and the prefix.
 
 ### scales
 This module has by default three scales, SI-prefixes, short scale and long scale. It also allows you to add your own scales. This will be refered to as the prefix.
@@ -49,9 +49,9 @@ This module has by default three scales, SI-prefixes, short scale and long scale
 [see here for more informtion](https://en.wikipedia.org/wiki/Metric_prefix)
 
 ### Option to specify the unit
-It allows you set a unit/suffix
+It allows you set a unit/suffix.
 
-In the end your formatted string will look like this
+In the end your formatted string will look like this:
 `number` `.precision` `delimiter` `prefix` `unit`
 
 
@@ -67,6 +67,9 @@ local formatter = Formatter.new()
 print(formatter:format(10, 15, 1e9, 1e-9, 10.4554777, math.pi, 4.14001e-08, 2.32821e+07, -10, -1e9 , -math.pi, 0, 10.12)) --10  15  1 G 1 n 10.455  3.142  41.4 n 23.282 M -10  -1 G -3.142  0  10.12 
 local formatter2 = Formatter.new(3, nil, "", "SI", "B") -- set precision of 3, default so removes trailing zeros, empty delimiter , uses the SI scale and appends the "B" unit
 print(formatter2:format(10, 15, 1e9, 1e-9, 10.4554777, math.pi, 4.14001e-08, 2.32821e+07, -10, -1e9 , -math.pi, 0, 10.12)) --10B 15B 1GB 1nB 10.455B 3.142B 41.4nB 23.282MB -10B -1GB -3.142B 0B 10.12B
+
+print(formatter:format("10", "-1.45989e-9", 0/0, math.huge)) -- allows for string-number coersion, output: 10 -1.46 n NaN  ∞
+print(Formatter.format(1.79769e+308)) -- this is pratically the largest number in lua output: 1.79769e+308
 ```
 
 
