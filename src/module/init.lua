@@ -13,16 +13,17 @@ local instance = {}
 instance.__index = Formatter
 local mt = {__index = instance}
 
+-- these are modified to allow string-number coersion
 local function isNumber(arg)
-    return type(arg) == "number"
+    return tonumber(arg)
 end
 
 local function isInt(arg)
-    return isNumber(arg) and arg == math.floor(arg)
+    return tonumber(arg) and tonumber(arg) == math.floor(arg)
 end
 
 local function isString(arg)
-    return type(arg) == "string"
+    return type(arg) == "string" or type(arg) == "number"
 end
 
 local function isStrings(...)
@@ -42,7 +43,7 @@ local function format(number, precision, removeTrailingZeros, delimiter, scale, 
     local formattedNumber 
 
     if prefix then
-        formattedNumber = string.format("%".. (removeTrailingZeros and "#" or "") .."." .. precision .. "f",  number / 10 ^ (index * 3))
+        formattedNumber = string.format("%".. (removeTrailingZeros and "#" or "") .. "." .. precision .. "f",  number / 10 ^ (index * 3))
         if removeTrailingZeros then
             formattedNumber = string.gsub(formattedNumber, "%.?0*$", "")
         end
