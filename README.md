@@ -105,7 +105,6 @@ It returns the formatted numbers using the properties from the formatter instanc
 #### `string` **Formatter.format**(number:`number`, removeTrailingZeros:`boolean` true, delimiter:`string` " ", scale:`string` "SI", unit:`string` "")
 ##### It returns the formatted numbers using the given properties.
 
-####
 ## Notes
 - Numbers bigger or smaller than 1e±24 and zero will not be formatted but will have delimiter and prefix and unit added. This can be overcome by expanding the scales.
 - It does only type checking for the arguments, so if you set the properties manually you can set a wrong type.

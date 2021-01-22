@@ -46,7 +46,6 @@ local function areStrings(...)
     return true
 end
 
-
 local function formatExceptions(number)
     if isInf(number) then
         return "∞"
